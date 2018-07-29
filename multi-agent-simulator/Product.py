@@ -5,12 +5,12 @@ class Product:
     product satisfaction increases NPS score of purchasers.
     '''
 
-    def __init__(self):
-        pass
+    def __init__(self, advertisingBudget):
+        self.advertisingBudget = advertisingBudget
     
     def __str__(self):
         pass
     
     def advertise(self):
-        pass
+        return self.advertisingBudget
     

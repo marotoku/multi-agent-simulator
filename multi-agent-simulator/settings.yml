@@ -1,0 +1,8 @@
+Population: 10000
+Innovators: 0.15
+EarlyAdopters: 0.85
+PurchaseProbability: 0.05
+AdvertisingBudget: 1
+CoefficiencyOfAdvertisement: 0.01
+MarketNPS: 0.4
+CoefficiencyOfNPS: 0.02

@@ -1,6 +1,8 @@
-from abc import ABCMeata, abstractmethod
+import random
 
-class Person(metaclass=ABCMeata):
+from PsychologicalModel import AbstractModel,SimpleInnovatorModel,SimpleEarlyAdopterModel
+
+class Person():
     '''
     Person class is abstract class.
     this expands to Innovator and EarlyAdopter class.
@@ -11,49 +13,41 @@ class Person(metaclass=ABCMeata):
     and calculate purchase probability and the NPS score after purchase.
     '''
 
-    @abstractmethod
-    def __init__(self):
-        pass
+    def __init__(self, market, product):
+        self.psyModel = AbstractModel(market, product)
+        self.purchased = False
+        self.NPS = None
 
-    @abstractmethod
     def __str__(self):
-        pass
+        "Class: " + self.__class__.__name__ + ", Model Class: " + self.psyModel.__class__.__name__ + ", purchased: " + self.purchased + ", NPS: " + self.NPS
 
-    @abstractmethod
     def purchase(self):
-        pass
+        if random.random() <= self.psyModel.purchaseProbability():
+            self.purchased = True
+            self.setNPS()
 
-    @abstractmethod
-    def NPS(self):
-        pass
+
+    def setNPS(self):
+        if self.purchased == True:
+            self.NPS = random.randint(0, 10)
+        else:
+            self.NPS = None
 
 class Innovator(Person):
     '''
-    Innovators purchase a product with a certain probability.
-    After purchase, they send a NPS score.
+    Innovators purchase a product with a certain probability(free parameter).
     '''
-
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        pass
-
-    def NPS(self):
-        pass
-    
-    def purchase(self):
-        pass
-
+    def __init__(self, market, product, purchaseProbability):
+        self.psyModel = SimpleInnovatorModel(market, product, purchaseProbability)
+        self.purchased = False
+        self.NPS = None
+                    
 class EarlyAdopter(Person):
     '''
-
+    Early Adopters do not purchase immediately. 
+    They decide whether to purchase with reference to the market evaluation and product advertisement.
     '''
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        pass
-
-    def NPS(self):
-        pass
+    def __init__(self, market, product, coefNPS, coefAdvertise):
+        self.psyModel = SimpleEarlyAdopterModel(market, product, coefNPS, coefAdvertise)
+        self.purchased = False
+        self.NPS = None
